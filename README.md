@@ -1,66 +1,66 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Minecraft-1.20.1+-green?style=for-the-badge&logo=minecraft" alt="Minecraft 1.20.1+"/>
   <img src="https://img.shields.io/badge/API-Spigot%20%7C%20Folia-orange?style=for-the-badge" alt="Spigot | Folia"/>
-  <img src="https://img.shields.io/badge/Version-1.6.6--snapshot.5-blue?style=for-the-badge" alt="Version 1.6.6"/>
+  <img src="https://img.shields.io/badge/Version-1.6.6--snapshot.5-blue?style=for-the-badge" alt="版本 1.6.6"/>
   <img src="https://img.shields.io/badge/License-GPL%20v3-red?style=for-the-badge" alt="GPL v3"/>
   <img src="https://img.shields.io/badge/Java-17%2B-brightgreen?style=for-the-badge" alt="Java 17+"/>
 </p>
 
 # GuildPlugin
 
-A feature-complete Minecraft guild/faction system with economy, relations, leveling, full GUI, and modular SDK support. Supports both Spigot and Folia — free and open-source.
+一个功能完备的 Minecraft 公会/阵营系统，包含经济、关系、等级、全图形界面以及模块化 SDK 支持。同时支持 Spigot 和 Folia —— 完全免费且开源。
 
-> Documentation: [User Guide](./Wiki/README_CN.md) | [Quick Start](./Wiki/README_EN.md) | [SDK Developer Guide](./Wiki/SDK%20Developer-Guide.md) | [GuildWorld](./Wiki/GuildWorld.md) ([EN](./Wiki/GuildWorld_EN.md)) | [GuildWar](./Wiki/GuildWar.md) ([EN](./Wiki/GuildWar_EN.md))
+> 文档：[用户指南](./Wiki/README_CN.md) | [快速开始](./Wiki/README_EN.md) | [SDK 开发者指南](./Wiki/SDK%20Developer-Guide.md) | [公会世界](./Wiki/GuildWorld.md) ([EN](./Wiki/GuildWorld_EN.md)) | [公会战](./Wiki/GuildWar.md) ([EN](./Wiki/GuildWar_EN.md))
 
-## Features
+## 特性
 
-- **Guild Management** — create, disband, member management, role-based permission system
-- **Economy System** — fund management, deposit/withdraw, Vault integration
-- **Relationship System** — ally, hostile, war, truce between guilds
-- **Level System** — guild growth with increasing max member caps
-- **Full GUI** — intuitive graphical interface for all operations
-- **Multi-language** — **26** bundled languages (中文, English, Polski, Português (Brasil), Deutsch, Français, Español, 日本語, 한국어, and more)
-- **Worlds & Guild War** — void arenas, `.gws` presets, fixed-map team PVP (`/guildworld`, `/guildwar`); cross-server war is a **P3 proxy skeleton only** (not production-wired — see [CrossServer-War](./Wiki/CrossServer-War.md))
-- **Async Database** — HikariCP connection pool, MySQL/SQLite support
-- **Modular SDK** — external module development with full API coverage (6 example modules)
-- **CustomGUI System** — modules register/open/unregister custom GUIs (**`moduleId` required** for hot-unload cleanup)
-- **EventBus** — loose-coupled inter-module communication with per-module subscription tracking
-- **ServiceContainer** — modules access core system services via DI
-- **Hot-load Modules** — add/remove modules at runtime via `/guildmodule`, no server restart needed
-- **Module Lifecycle Safety** — auto-cleanup of listeners, tasks, commands, GUIs, and placeholders on unload; Folia compatibility guard; ClassLoader leak detection
-- **Module GUI Enhancement** — image mode (ImagoCore), Bedrock Edition forms (Cumulus), and server admin config override via `gui-config.yml`
+- **公会管理** —— 创建、解散、成员管理、基于角色的权限系统
+- **经济系统** —— 资金管理、存入/取出、Vault 集成
+- **关系系统** —— 公会间的结盟、敌对、战争、停战
+- **等级系统** —— 公会成长，随等级提升最大成员上限
+- **全图形界面** —— 所有操作均提供直观的图形界面
+- **多语言** —— 内置 **26** 种语言 (中文, English, Polski, Português (Brasil), Deutsch, Français, Español, 日本語, 한국어 等)
+- **世界与公会战** —— 虚空竞技场、`.gws` 预设、固定地图团队 PVP (`/guildworld`, `/guildwar`)；跨服战目前仅为 **P3 代理框架** (尚未投入生产环境使用 —— 详见 [跨服战](./Wiki/CrossServer-War.md))
+- **异步数据库** —— HikariCP 连接池，支持 MySQL/SQLite
+- **模块化 SDK** —— 外部模块开发，提供全功能 API 覆盖（包含 6 个示例模块）
+- **自定义 GUI 系统** —— 模块可注册/打开/注销自定义 GUI（热卸载清理需提供 **`moduleId`**）
+- **事件总线 (EventBus)** —— 松耦合的模块间通信，支持按模块进行订阅追踪
+- **服务容器 (ServiceContainer)** —— 模块通过依赖注入 (DI) 访问核心系统服务
+- **模块热加载** —— 通过 `/guildmodule` 在运行时添加/移除模块，无需重启服务器
+- **模块生命周期安全** —— 卸载时自动清理监听器、任务、命令、GUI 和占位符；Folia 兼容性检查；ClassLoader 泄漏检测
+- **模块 GUI 增强** —— 图片模式、基岩版表单 以及通过 `gui-config.yml` 实现的服务器管理员配置覆盖
 
-## Compatibility
+## 兼容性
 
-| Software | Version |
+| 软件 | 版本 |
 |:--------:|:-------:|
 | [Spigot](https://www.spigotmc.org) | 1.20.1+ |
 | [PaperMC](https://papermc.io/downloads/paper) | 1.20.1+ |
 | [Purpur](https://purpurmc.org) | 1.20.1+ |
-| [Folia](https://papermc.io/software/folia) | Core runs on Folia; **`/guildworld` NMS bridge** only on whitelist versions (see below) |
+| [Folia](https://papermc.io/software/folia) | 核心可在 Folia 上运行；**`/guildworld` NMS 桥接**仅支持白名单版本（见下文） |
 
-Folia multi-world (`gworld`) whitelist is defined in `ServerUtils.FOLIA_SUPPORTED_VERSIONS` (e.g. 1.19.4, 1.20.4, 1.20.6, 1.21.x, 26.1.x). **1.20.1 is intentionally not included** — the plugin loads, but world create/load stays disabled on unsupported Folia builds.
+Folia 多世界 (`gworld`) 白名单定义在 `ServerUtils.FOLIA_SUPPORTED_VERSIONS` 中（例如 1.19.4, 1.20.4, 1.20.6, 1.21.x, 26.1.x）。**特意未包含 1.20.1** —— 插件会正常加载，但在不受支持的 Folia 版本上，世界创建/加载功能将保持禁用状态。
 
-## Integrations
+## 集成
 
-| Plugin | Type |
+| 插件 | 类型 |
 |:------:|:----:|
-| [Vault](https://www.spigotmc.org/resources/vault.34315/) | Economy |
-| [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | Placeholders |
+| [Vault](https://www.spigotmc.org/resources/vault.34315/) | 经济 |
+| [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | 占位符 |
 
-## Installation
+## 安装
 
-1. Download the latest release from [Releases](https://github.com/chenasyd/-GuildPlugin/releases)
-2. Place `guild-plugin-{version}.jar` in your server's `plugins/` folder
-3. Restart the server
-4. Configure `plugins/GuildPlugin/config.yml` to your needs
-5. Run `/guildadmin reload` to apply configuration changes (runtime configs + languages; does **not** reconnect DB/Bungee)
+1. 从 [Releases](https://github.com/chenasyd/-GuildPlugin/releases) 下载最新版本
+2. 将 `guild-plugin-{version}.jar` 放入服务器的 `plugins/` 文件夹中
+3. 重启服务器
+4. 根据需要配置 `plugins/GuildPlugin/config.yml`
+5. 运行 `/guildadmin reload` 以应用配置更改（运行时配置 + 语言文件；**不会**重连数据库/Bungee）
 
-> ⚠️ **When upgrading the plugin**: Always back up your configuration and data first. It is recommended to delete `messages_*.yml` files and let the plugin regenerate them — this ensures all new messages are included and avoids display errors.
+> ⚠️ **升级插件时**：请务必先备份您的配置和数据。建议删除 `messages_*.yml` 文件并让插件重新生成它们 —— 这能确保包含所有新消息并避免显示错误。
 
-## Building from source
+## 从源码构建
 
-**Requirements:** Java 17+, Maven 3.8+
+**环境要求：** Java 17+, Maven 3.8+
 
 ```bash
 git clone https://github.com/chenasyd/-GuildPlugin.git
@@ -68,148 +68,148 @@ cd -GuildPlugin
 mvn clean package -pl guild-plugin
 ```
 
-The output JAR will be at `guild-plugin/target/guild-plugin-*.jar`.
+输出的 JAR 文件将位于 `guild-plugin/target/guild-plugin-*.jar`。
 
-To include example modules:
+如需包含示例模块：
 
 ```bash
 mvn clean package -pl guild-plugin -Pbuild-announcement-module
 ```
 
-## Commands
+## 指令
 
-> Aliases: `/g` → `/guild`, `/ga` → `/guildadmin`.
+> 别名：`/g` → `/guild`，`/ga` → `/guildadmin`。
 
-### Player Commands (`/guild`)
+### 玩家指令 (`/guild`)
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guild` | `guild.use` | Open main GUI |
-| `/guild create <name>` | `guild.create` | Create a guild |
-| `/guild info` | `guild.use` | View guild info |
-| `/guild members` | `guild.use` | List members |
-| `/guild invite <player>` | `guild.invite` | Invite a player |
-| `/guild kick <player>` | `guild.kick` | Kick a member |
-| `/guild promote <player>` | `guild.promote` | Promote to officer |
-| `/guild demote <player>` | `guild.demote` | Demote officer |
-| `/guild accept <guild>` | `guild.use` | Accept invitation |
-| `/guild decline <guild>` | `guild.use` | Decline invitation |
-| `/guild leave` | `guild.use` | Leave guild |
-| `/guild delete` | `guild.delete` | Delete guild (opens confirm GUI) |
-| `/guild delete confirm` | `guild.delete` | Confirm guild deletion |
-| `/guild delete cancel` | `guild.delete` | Cancel guild deletion |
-| `/guild sethome` | `guild.sethome` | Set guild home |
-| `/guild home` | `guild.home` | Teleport to guild home |
-| `/guild deposit <amount>` | `guild.deposit` | Deposit funds |
-| `/guild withdraw <amount>` | `guild.withdraw` | Withdraw funds |
-| `/guild transfer <player> <amount>` | `guild.transfer` | Transfer to player |
-| `/guild logs` | `guild.use` | View guild operation logs |
-| `/guild placeholder <player\|guild\|rank>` | `guild.use` | Get placeholders |
-| `/guild time` | `guild.use` | View guild age |
-| `/guild help` | `guild.use` | Show help |
+| `/guild` | `guild.use` | 打开主界面 |
+| `/guild create <name>` | `guild.create` | 创建公会 |
+| `/guild info` | `guild.use` | 查看公会信息 |
+| `/guild members` | `guild.use` | 列出成员 |
+| `/guild invite <player>` | `guild.invite` | 邀请玩家 |
+| `/guild kick <player>` | `guild.kick` | 踢出成员 |
+| `/guild promote <player>` | `guild.promote` | 晋升为官员 |
+| `/guild demote <player>` | `guild.demote` | 降级官员 |
+| `/guild accept <guild>` | `guild.use` | 接受邀请 |
+| `/guild decline <guild>` | `guild.use` | 拒绝邀请 |
+| `/guild leave` | `guild.use` | 离开公会 |
+| `/guild delete` | `guild.delete` | 删除公会（打开确认界面） |
+| `/guild delete confirm` | `guild.delete` | 确认删除公会 |
+| `/guild delete cancel` | `guild.delete` | 取消删除公会 |
+| `/guild sethome` | `guild.sethome` | 设置公会领地 |
+| `/guild home` | `guild.home` | 传送到公会领地 |
+| `/guild deposit <amount>` | `guild.deposit` | 存入资金 |
+| `/guild withdraw <amount>` | `guild.withdraw` | 取出资金 |
+| `/guild transfer <player> <amount>` | `guild.transfer` | 转账给玩家 |
+| `/guild logs` | `guild.use` | 查看公会操作日志 |
+| `/guild placeholder <player\|guild\|rank>` | `guild.use` | 获取占位符 |
+| `/guild time` | `guild.use` | 查看公会成立时长 |
+| `/guild help` | `guild.use` | 显示帮助 |
 
-#### `/guild relation` — Relations
+#### `/guild relation` —— 关系
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guild relation list` | `guild.relation` | List all relations |
-| `/guild relation create <guild> [type]` | `guild.relation` | Create relation (default: ally) |
-| `/guild relation accept <guild>` | `guild.relation` | Accept request |
-| `/guild relation reject <guild>` | `guild.relation` | Reject request |
-| `/guild relation delete <guild>` | `guild.relation` | Delete relation |
+| `/guild relation list` | `guild.relation` | 列出所有关系 |
+| `/guild relation create <guild> [type]` | `guild.relation` | 创建关系（默认：结盟） |
+| `/guild relation accept <guild>` | `guild.relation` | 接受请求 |
+| `/guild relation reject <guild>` | `guild.relation` | 拒绝请求 |
+| `/guild relation delete <guild>` | `guild.relation` | 删除关系 |
 
-Relation types: `neutral`, `ally`, `enemy`, `war`, `truce`
+关系类型：`neutral` (中立)、`ally` (结盟)、`enemy` (敌对)、`war` (战争)、`truce` (停战)
 
-#### `/guild economy` — Economy
+#### `/guild economy` —— 经济
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guild economy info` | `guild.economy` | View economy info |
-| `/guild economy deposit <amount>` | `guild.economy` | Deposit funds |
-| `/guild economy withdraw <amount>` | `guild.economy` | Withdraw funds |
-| `/guild economy transfer <guild> <amount>` | `guild.economy` | Transfer to another guild |
+| `/guild economy info` | `guild.economy` | 查看经济信息 |
+| `/guild economy deposit <amount>` | `guild.economy` | 存入资金 |
+| `/guild economy withdraw <amount>` | `guild.economy` | 取出资金 |
+| `/guild economy transfer <guild> <amount>` | `guild.economy` | 转账给其他公会 |
 
-### Admin Commands (`/guildadmin`)
+### 管理员指令 (`/guildadmin`)
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guildadmin` | `guild.admin` | Admin panel |
-| `/guildadmin reload` | `guild.admin` | Reload runtime configs + languages (not DB/Bungee) |
-| `/guildadmin list` | `guild.admin` | List all guilds |
-| `/guildadmin info <guild>` | `guild.admin` | Guild details |
-| `/guildadmin delete <guild>` | `guild.admin` | Force delete guild |
-| `/guildadmin freeze <guild>` | `guild.admin` | Freeze guild |
-| `/guildadmin unfreeze <guild>` | `guild.admin` | Unfreeze guild |
-| `/guildadmin transfer <guild> <player>` | `guild.admin` | Transfer leadership |
-| `/guildadmin economy <guild> <set\|add\|remove> <amount>` | `guild.admin` | Manage guild economy |
-| `/guildadmin update` | `guild.admin` | Check for updates |
-| `/guildadmin update download` | `guild.admin.update` | Download & install update |
-| `/guildadmin test <gui\|economy\|relation>` | `guild.admin` | Run admin tests |
-| `/guildadmin help` | `guild.admin` | Show help |
+| `/guildadmin` | `guild.admin` | 管理面板 |
+| `/guildadmin reload` | `guild.admin` | 重载运行时配置 + 语言文件（不包含数据库/Bungee） |
+| `/guildadmin list` | `guild.admin` | 列出所有公会 |
+| `/guildadmin info <guild>` | `guild.admin` | 公会详情 |
+| `/guildadmin delete <guild>` | `guild.admin` | 强制删除公会 |
+| `/guildadmin freeze <guild>` | `guild.admin` | 冻结公会 |
+| `/guildadmin unfreeze <guild>` | `guild.admin` | 解冻公会 |
+| `/guildadmin transfer <guild> <player>` | `guild.admin` | 转让会长 |
+| `/guildadmin economy <guild> <set\|add\|remove> <amount>` | `guild.admin` | 管理公会经济 |
+| `/guildadmin update` | `guild.admin` | 检查更新 |
+| `/guildadmin update download` | `guild.admin.update` | 下载并安装更新 |
+| `/guildadmin test <gui\|economy\|relation>` | `guild.admin` | 运行管理员测试 |
+| `/guildadmin help` | `guild.admin` | 显示帮助 |
 
 #### `/guildadmin relation`
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guildadmin relation gui` | `guild.admin` | Open relation management GUI |
-| `/guildadmin relation list` | `guild.admin` | List all relations |
-| `/guildadmin relation create <g1> <g2> <type>` | `guild.admin` | Create relation |
-| `/guildadmin relation delete <g1> <g2>` | `guild.admin` | Delete relation |
+| `/guildadmin relation gui` | `guild.admin` | 打开关系管理界面 |
+| `/guildadmin relation list` | `guild.admin` | 列出所有关系 |
+| `/guildadmin relation create <g1> <g2> <type>` | `guild.admin` | 创建关系 |
+| `/guildadmin relation delete <g1> <g2>` | `guild.admin` | 删除关系 |
 
-### Module Management (`/guildmodule`)
+### 模块管理 (`/guildmodule`)
 
-| Command | Permission | Description |
+| 指令 | 权限 | 描述 |
 |:-------:|:----------:|:-----------:|
-| `/guildmodule list` | `guild.admin.module` | List loaded modules |
-| `/guildmodule load <file.jar>` | `guild.admin.module` | Load a module |
-| `/guildmodule unload <moduleId>` | `guild.admin.module` | Unload a module |
-| `/guildmodule reload <moduleId>` | `guild.admin.module` | Reload a module |
-| `/guildmodule info <moduleId>` | `guild.admin.module` | Module details |
-| `/guildmodule cloud` | `guild.admin.module` | List cloud modules |
-| `/guildmodule cloud download <moduleId>` | `guild.admin.module` | Download from cloud |
+| `/guildmodule list` | `guild.admin.module` | 列出已加载的模块 |
+| `/guildmodule load <file.jar>` | `guild.admin.module` | 加载模块 |
+| `/guildmodule unload <moduleId>` | `guild.admin.module` | 卸载模块 |
+| `/guildmodule reload <moduleId>` | `guild.admin.module` | 重载模块 |
+| `/guildmodule info <moduleId>` | `guild.admin.module` | 模块详情 |
+| `/guildmodule cloud` | `guild.admin.module` | 列出云端模块 |
+| `/guildmodule cloud download <moduleId>` | `guild.admin.module` | 从云端下载 |
 
-### All Permission Nodes
+### 所有权限节点
 
-| Permission | Default | Description |
+| 权限 | 默认 | 描述 |
 |:----------:|:-------:|:-----------:|
-| `guild.use` | true | Use guild system |
-| `guild.create` | true | Create a guild |
-| `guild.invite` | true | Invite players |
-| `guild.kick` | true | Kick members |
-| `guild.promote` | true | Promote members |
-| `guild.demote` | true | Demote members |
-| `guild.delete` | op | Delete guild |
-| `guild.sethome` | true | Set guild home |
-| `guild.home` | true | Teleport to guild home |
-| `guild.relation` | true | Manage relations |
-| `guild.economy` | true | Manage economy |
-| `guild.deposit` | true | Deposit funds |
-| `guild.withdraw` | true | Withdraw funds |
-| `guild.transfer` | true | Transfer funds |
-| `guild.admin` | op | Admin privileges |
-| `guild.admin.module` | op | Module management |
-| `guild.admin.update` | op | Download & install updates |
+| `guild.use` | true | 使用公会系统 |
+| `guild.create` | true | 创建公会 |
+| `guild.invite` | true | 邀请玩家 |
+| `guild.kick` | true | 踢出成员 |
+| `guild.promote` | true | 晋升成员 |
+| `guild.demote` | true | 降级成员 |
+| `guild.delete` | op | 删除公会 |
+| `guild.sethome` | true | 设置公会领地 |
+| `guild.home` | true | 传送到公会领地 |
+| `guild.relation` | true | 管理关系 |
+| `guild.economy` | true | 管理经济 |
+| `guild.deposit` | true | 存入资金 |
+| `guild.withdraw` | true | 取出资金 |
+| `guild.transfer` | true | 转账资金 |
+| `guild.admin` | op | 管理员权限 |
+| `guild.admin.module` | op | 模块管理 |
+| `guild.admin.update` | op | 下载并安装更新 |
 
-## Version Naming Convention
+## 版本命名规则
 
-| Type | Format | Example |
+| 类型 | 格式 | 示例 |
 |:----:|:------:|:-------:|
-| Official release | `x.x.x` | `1.6.5` |
-| Official pre-release | `x.x.x-snapshot.N` | `1.6.6-snapshot.2` |
-| Third-party fork | `x.x.x-forkname.N` | `1.6.4-elaria.1` |
+| 正式版 | `x.x.x` | `1.6.5` |
+| 正式预发布版 | `x.x.x-snapshot.N` | `1.6.6-snapshot.2` |
+| 第三方分支版 | `x.x.x-forkname.N` | `1.6.4-elaria.1` |
 
-The `v` prefix is optional and auto-recognized (`v1.6.5` = `1.6.5`). Third-party forks MUST use a custom suffix (`x.x.x-yourname.N`) to distinguish from official releases. The update checker queries GitHub and Modrinth simultaneously and warns if the local version is not officially maintained.
+`v` 前缀是可选的，会自动识别（`v1.6.5` = `1.6.5`）。第三方分支版必须使用自定义后缀（`x.x.x-yourname.N`）以与正式版区分。更新检查器会同时查询 GitHub 和 Modrinth，如果本地版本非官方维护，将会发出警告。
 
-## Links
+## 链接
 
 - **GitHub**: [chenasyd/-GuildPlugin](https://github.com/chenasyd/-GuildPlugin)
-- **Issues**: [Report a bug](https://github.com/chenasyd/-GuildPlugin/issues)
-- **Wiki**: [Documentation](https://github.com/chenasyd/-GuildPlugin/wiki)
+- **Issues**: [提交 Bug](https://github.com/chenasyd/-GuildPlugin/issues)
+- **Wiki**: [文档](https://github.com/chenasyd/-GuildPlugin/wiki)
 
 ## bStats
 
 [![bStats](https://bstats.org/signatures/bukkit/Guild%20Plugin.svg)](https://bstats.org/plugin/bukkit/Guild%20Plugin/31803)
 
-## License
+## 开源协议
 
-This project is licensed under the [GNU GPL v3.0](LICENSE).
+本项目基于 [GNU GPL v3.0](LICENSE) 协议开源。
